@@ -45,6 +45,13 @@ public class TaskList {
                 nodeCount++;
             }
             */
+            for(int i=1;i<=nodeCount;i++){
+                if((currentNode.next != null)&&(currentNode.getTask().getDueDate().isBefore(node.getTask().getDueDate()))&&(currentNode.getTask().getCurrentTaskId()<node.getTask().getCurrentTaskId())){
+                    currentNode = currentNode.next;
+                }else{
+                    if(currentN
+                }
+            }
         }
     }
 
