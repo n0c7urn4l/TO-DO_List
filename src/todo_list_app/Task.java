@@ -51,9 +51,26 @@ public class Task {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
+        this.status = false;
     }
 
     public Task(String title, LocalDate dueDate){
         this(title,"No Description",dueDate);
+    }
+
+    public void markAsComplete(){
+        this.status = true;
+    }
+
+    public void editTitle(String title){
+        this.title = title;
+    }
+
+    public void editDescription(String description){
+        this.description = description;
+    }
+
+    public void editDueDate(LocalDate dueDate){
+        this.dueDate = dueDate;
     }
 }

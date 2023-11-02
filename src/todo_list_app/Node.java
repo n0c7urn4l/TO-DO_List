@@ -22,7 +22,7 @@ public class Node {
         System.out.println("Title: "+taskData.getTitle());
         System.out.println("Description: "+taskData.getDescription());
         System.out.println(("Due Date: "+taskData.getDueDate()));
-
+        System.out.println("-----------------------------------------------------------");
     }
 
 }

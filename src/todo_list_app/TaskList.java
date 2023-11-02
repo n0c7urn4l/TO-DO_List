@@ -14,48 +14,75 @@ public class TaskList {
         lastNode = null;
     }
 
+    private void addFront(Node node){
+        node.next = firstNode;
+        firstNode.previous = node;
+        firstNode = node;
+        nodeCount++;
+
+    }
+
+    private void addLast(Node node){
+        lastNode.next = node;
+        node.previous = lastNode;
+        lastNode = node;
+        nodeCount++;
+    }
+
+    private void addLeft(Node currentNode,Node node){
+        Node tempNode = currentNode.previous;
+        currentNode.previous = node;
+        node.next = currentNode;
+        node.previous = tempNode;
+        tempNode.next = node;
+        nodeCount++;
+    }
+
+//    private void addRight(Node currentNode,Node node){
+//        Node tempNode = currentNode.next;
+//        currentNode.next = node;
+//        node.previous = currentNode;
+//        node.next = tempNode;
+//        tempNode.previous = node;
+//    }
+
     public void addNode(Node node){
-        boolean flag = true;
-        //Node prevNode = null;
         Node currentNode = firstNode;
+
         if(nodeCount == 0){
             firstNode = node;
             lastNode = node;
             nodeCount++;
+        }else if(nodeCount == 1){
+
+            if(node.getTask().getDueDate().isBefore(currentNode.getTask().getDueDate())){
+                addFront(node);
+            }else{
+                addLast(node);
+            }
+
         }else{
 
-            //DO THIS AGAIN
-            /*
-            for (int i = 1;i<=nodeCount;i++){
-                if((currentNode.next != null)&&(currentNode.getTask().getDueDate().isBefore(node.getTask().getDueDate()))&&(currentNode.getTask().getCurrentTaskId()<node.getTask().getCurrentTaskId())){
-                    currentNode = currentNode.next;
+            for(int i=1;i<=nodeCount;i++){
+
+                if((node.getTask().getDueDate().equals(currentNode.getTask().getDueDate()))&&(currentNode.next == null)){
+                    addLast(node);
+                }else if((node.getTask().getDueDate().isBefore(currentNode.getTask().getDueDate()))){
+                    if(currentNode == firstNode){
+                        addFront(node);
+                    }else{
+                        addLeft(currentNode,node);
+                    }
                 }else{
-                    break;
+                    currentNode = currentNode.next;
                 }
+
             }
 
-            if(currentNode.next == null){
-                node.previous = currentNode;
-                currentNode.next = node;
-                nodeCount++;
-            }else{
-                node.previous = currentNode;
-                node.next = currentNode.next;
-                currentNode.next.previous = node;
-                nodeCount++;
-            }
-            */
-            for(int i=1;i<=nodeCount;i++){
-                if((currentNode.next != null)&&(currentNode.getTask().getDueDate().isBefore(node.getTask().getDueDate()))&&(currentNode.getTask().getCurrentTaskId()<node.getTask().getCurrentTaskId())){
-                    currentNode = currentNode.next;
-                }else{
-                    if(currentN
-                }
-            }
         }
     }
 
-    public void delete(Task task){
+    public void remove(Task task){
         Node currentNode = firstNode;
         boolean flag = true;
         int count = 0;
