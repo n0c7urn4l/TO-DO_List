@@ -18,6 +18,12 @@ public class Task {
     public void setStatus(boolean status) {
         this.status = status;
     }
+    public String getStatus(){
+        String status = "Ongoing";
+        if(isComplete()){status = "Completed";}
+
+        return status;
+    }
 
     public LocalDate getDueDate() {
         return dueDate;

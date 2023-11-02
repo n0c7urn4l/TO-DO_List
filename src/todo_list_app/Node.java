@@ -21,8 +21,9 @@ public class Node {
         System.out.println(count);
         System.out.println("Title: "+taskData.getTitle());
         System.out.println("Description: "+taskData.getDescription());
-        System.out.println(("Due Date: "+taskData.getDueDate()));
-        System.out.println("-----------------------------------------------------------");
+        System.out.println("Due Date: "+taskData.getDueDate());
+        System.out.println("Task status: "+taskData.getStatus());
+        System.out.println("-----------------------------------------------------------\n");
     }
 
 }

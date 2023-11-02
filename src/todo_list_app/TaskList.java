@@ -9,6 +9,9 @@ public class TaskList {
     private Node lastNode;
     private int nodeCount = 0;
 
+    //To temporary store nodes when displaying tasks(in displayList method) to fetch them when user requests using index;
+    private Node[] nodeArr;
+
     public TaskList(){
         firstNode = null;
         lastNode = null;
@@ -99,14 +102,35 @@ public class TaskList {
                         nodeCount--;
                     }
                 }else if(count == nodeCount){
-                    System.out.println("### Task not found ###");
+                    System.out.println("### Task not found ###\n");
                     flag = false;
                 }
                 count++;
             }
 
         }else{
-            System.out.println("### List is empty ###");
+            System.out.println("### List is empty ###\n");
+        }
+    }
+
+    public void displayList(){
+        nodeArr = new Node[50];
+        Node currentNode = firstNode;
+        LocalDate currentDateRecord = null;
+        for (int i =1;i<=nodeCount;i++){
+
+            if(!currentNode.getTask().getDueDate().equals(currentDateRecord)){
+                currentDateRecord = currentNode.getTask().getDueDate();
+                if(currentDateRecord.equals(LocalDate.now())){
+                    System.out.println("***DUE TODAY***\n");
+                }else{
+                    System.out.println("***DUE "+currentDateRecord+"***\n");
+                }
+            }
+
+            currentNode.display(i);
+            nodeArr[i] = currentNode;
+            currentNode = currentNode.next;
         }
     }
 
