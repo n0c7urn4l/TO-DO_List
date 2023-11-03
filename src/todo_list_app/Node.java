@@ -9,6 +9,7 @@ public class Node {
     public Task getTask(){
         return taskData;
     }
+    public void setTask(Task taskData){this.taskData = taskData;}
 
     public Node(Task taskData){
         this.taskData = taskData;
@@ -19,10 +20,7 @@ public class Node {
     public void display(int count){
         System.out.println("-----------------------------------------------------------");
         System.out.println(count);
-        System.out.println("Title: "+taskData.getTitle());
-        System.out.println("Description: "+taskData.getDescription());
-        System.out.println("Due Date: "+taskData.getDueDate());
-        System.out.println("Task status: "+taskData.getStatus());
+        System.out.println(taskData.toString());
         System.out.println("-----------------------------------------------------------\n");
     }
 

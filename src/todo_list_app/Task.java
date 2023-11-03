@@ -79,4 +79,14 @@ public class Task {
     public void editDueDate(LocalDate dueDate){
         this.dueDate = dueDate;
     }
+
+    @Override
+    public String toString(){
+        String displayData = "Title: "+getTitle();
+        displayData += "\nDescription: "+getDescription();
+        displayData += "\nDue Date: "+getDueDate();
+        displayData += "\nTask status: "+getStatus();
+
+        return displayData;
+    }
 }
