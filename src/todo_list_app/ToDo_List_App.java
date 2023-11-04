@@ -27,7 +27,7 @@ public class ToDo_List_App {
 
     private String displayMenuOptions(int menuId){
         /*
-            Display menu options
+                Menu options Collection --> Display options and return the user input
          */
         Scanner sc = new Scanner(System.in);
         String option = null;
@@ -68,6 +68,7 @@ public class ToDo_List_App {
                 option = sc.nextLine();
                 break;
             case 6:
+                //options for due today tasks menu
                 System.out.println("#--------#");
                 System.out.println("A:Go-Back");
                 System.out.println("Select a task-number or an option:");
@@ -98,7 +99,6 @@ public class ToDo_List_App {
             LocalDate dueDate = getDate();
             int priority = getPriority();
             task = new Task(title,description,dueDate,priority);
-//            System.out.println("task = new Task(title,description,dueDate);");
             Node newNode = new Node(task);
             taskList.addNode(newNode);
             System.out.println("-Task added-");
@@ -108,7 +108,6 @@ public class ToDo_List_App {
             int priority = getPriority();
             task = new Task(title,dueDate,priority);
             Node newNode = new Node(task);
-//            System.out.println("Node newNode = new Node(task);");
             taskList.addNode(newNode);
             System.out.println("-Task added-");
         }else{
@@ -245,6 +244,9 @@ public class ToDo_List_App {
     }
 
     public void displayTaskDueTodayMenu(){
+        /*
+            Menu for Due today task list
+         */
         String option = null;
         taskList.displayList(2);
         if(taskList.nodeArrCount != 0){
