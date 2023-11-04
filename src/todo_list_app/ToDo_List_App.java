@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
+ * This class represents the main application for the to-do list. It allows users to interact with
+ * a task-list and add, remove, complete, and edit tasks, and display task information.
  *
  * @author shanu
  */
@@ -24,10 +26,10 @@ public class ToDo_List_App {
 
     private TaskList taskList = new TaskList();
 
+    /**
+     * Menu options Collection --> Display options and return the user input
+     */
     private String displayMenuOptions(int menuId){
-        /*
-                Menu options Collection --> Display options and return the user input
-         */
         Scanner sc = new Scanner(System.in);
         String option = null;
         switch (menuId){
@@ -67,7 +69,7 @@ public class ToDo_List_App {
                 option = sc.nextLine();
                 break;
             case 6:
-                //options for due today tasks menu
+                //options for due today tasks list
                 System.out.println("#--------#");
                 System.out.println("A:Go-Back");
                 System.out.println("Select a task-number or an option:");
@@ -80,10 +82,13 @@ public class ToDo_List_App {
         return option;
     }
 
+    /**
+     * Create Task object and Node object
+     * Add task object to the Node Object
+     * Add taskNode to the TaskList
+     */
     private void addTask(){
-        /*
-            Add tasks to the TaskList in due date order
-        */
+
         Scanner sc = new Scanner(System.in);
         Task task = null;
         System.out.println("\n---Enter Task Data---");
@@ -123,10 +128,10 @@ public class ToDo_List_App {
 
     }
 
+    /**
+     * Fetch and return priority level from user
+     */
     private int getPriority(){
-        /*
-            Fetch and return priority level from user
-         */
         Scanner sc = new Scanner(System.in);
         System.out.println("#--------------------#");
         System.out.println("Select priority level:");
@@ -146,10 +151,10 @@ public class ToDo_List_App {
         return priority;
     }
 
+    /**
+     * Fetch and return LocalDate from the user
+     */
     private LocalDate getDate(){
-        /*
-            Fetch and return LocalDate from user
-         */
         Scanner sc = new Scanner(System.in);
         int year,month,day;
         System.out.println("Date input:");
@@ -170,29 +175,29 @@ public class ToDo_List_App {
         return fetchedDate;
     }
 
+    /**
+     * Displays the main menu options and handles user interactions with the task-list.
+     */
     public void displayMainMenu(){
-        /*
-                MAIN MENU for TODO List App
-         */
-        taskList.displayList(1);
+        taskList.displayList(1);  // Display the list of tasks
         System.out.println("### MAIN MENU ###\n");
-        String option = displayMenuOptions(1);
+        String option = displayMenuOptions(1);  // Display main menu options and get user input
         if(option.matches("[A-Z]+")){
             if(option.matches("[ABCDEF]")){
                 switch(option){
                     case "A":
-                        addTask();
+                        addTask();  // Add a new task
                         break;
                     case "B":
-                        taskList = new TaskList();
+                        taskList = new TaskList();  // Remove all tasks
                         Task.taskId = 0;
                         System.out.println("List cleared");
                         displayMainMenu();
                         break;
                     case "C":
-                        String sortOption = displayMenuOptions(3);
+                        String sortOption = displayMenuOptions(3);  // Display sorting options and get user input
                         if(sortOption.matches("[ABCDE]")){
-                            taskList.selectionSort(sortOption);
+                            taskList.selectionSort(sortOption);  // Sort the task list
                             displayMainMenu();
                         }else{
                             System.out.println("Wrong sort option try again");
@@ -200,10 +205,11 @@ public class ToDo_List_App {
                         }
                         break;
                     case "D":
-                        taskList.showCompletedTasks();
+                        taskList.showCompletedTasks();  // Display completed tasks
                         if(displayMenuOptions(4).equals("A")){
                             displayMainMenu();
                         }else{
+                            System.out.println("Wrong input Try again!");
                             displayMainMenu();
                         }
                         break;
@@ -211,12 +217,12 @@ public class ToDo_List_App {
                         if(taskList.isEmpty()){
                             displayMainMenu();
                         }else{
-                            displayTaskDueTodayMenu();
+                            displayTaskDueTodayMenu();  // Display tasks due today
                         }
 
                         break;
                     case "F":
-                        System.exit(0);
+                        System.exit(0);  // Exit the application
                         break;
                     default:
                         System.out.println("Wrong main menu option");
@@ -230,7 +236,7 @@ public class ToDo_List_App {
             int taskNum = Integer.parseInt(option);
             if(!(taskNum>taskList.nodeArrCount)&&(taskNum != 0)){
                 Node taskNode = taskList.nodeArr[taskNum-1];
-                taskMenu(taskNode);
+                taskMenu(taskNode);  // Display the task menu
             }else{
                 System.out.println("Wrong input try again");
                 displayMainMenu();
@@ -242,21 +248,21 @@ public class ToDo_List_App {
 
     }
 
+    /**
+     * Displays the menu for tasks due today and handles user interactions with these tasks.
+     */
     public void displayTaskDueTodayMenu(){
-        /*
-            Menu for Due today task list
-         */
         String option = null;
-        taskList.displayList(2);
+        taskList.displayList(2);  // Display tasks due today
         if(taskList.nodeArrCount != 0){
-            option = displayMenuOptions(6);
+            option = displayMenuOptions(6);  // Display due today task menu options and get user input
             if(option.equals("A")){
                 displayMainMenu();
             }else if(option.matches("\\d+")){
                 int taskNum = Integer.parseInt(option);
                 if(!(taskNum>taskList.nodeArrCount)&&(taskNum != 0)){
                     Node taskNode = taskList.nodeArr[taskNum-1];
-                    taskMenu(taskNode);
+                    taskMenu(taskNode);  // Display the task menu
                 }else{
                     System.out.println("Wrong input try again");
                     displayTaskDueTodayMenu();
@@ -268,7 +274,7 @@ public class ToDo_List_App {
         }else {
             System.out.println("           NO TASKS DUE");
             System.out.println("              TODAY ;)\n");
-            option = displayMenuOptions(4);
+            option = displayMenuOptions(4);  // Display "Go Back" option and get user input
             if(option.equals("A")){
                 displayMainMenu();
             }else{
@@ -280,30 +286,30 @@ public class ToDo_List_App {
 
     }
 
+    /**
+     * Displays the task menu for a specific task and handles user interactions with that task.
+     *
+     * @param currentTaskNode The node representing the current task.
+     */
     public void taskMenu(Node currentTaskNode){
-
-        /*
-                TASK MENU for the TODO List app
-         */
-
         System.out.println("### TASK MENU ###");
         currentTaskNode.display(0);
-        String option = displayMenuOptions(2);
+        String option = displayMenuOptions(2);  // Display task menu options and get user input
         switch(option){
             case "A":
-                taskList.markAsComplete(currentTaskNode.getTask());
+                taskList.markAsComplete(currentTaskNode.getTask());  // Mark the task as completed
                 System.out.println("Task mark as completed");
                 taskList.selectionSort("A");
                 displayMainMenu();
                 break;
             case "B":
-                taskList.remove(currentTaskNode.getTask());
+                taskList.remove(currentTaskNode.getTask());  // Remove the task
                 System.out.println("Task removed from the list");
                 taskList.selectionSort("A");
                 displayMainMenu();
                 break;
             case "C":
-                taskEditMenu(currentTaskNode);
+                taskEditMenu(currentTaskNode);  // Edit the task details
                 break;
             case "D":
                 displayMainMenu();
@@ -315,15 +321,15 @@ public class ToDo_List_App {
 
     }
 
+    /**
+     * Displays the menu for editing task details and handles user interactions for editing tasks.
+     *
+     * @param currentTaskNode The node representing the current task.
+     */
     private void taskEditMenu(Node currentTaskNode){
-
-        /*
-                Used to Edit task details
-         */
-
         Scanner sc = new Scanner(System.in);
         System.out.println("Edit By:");
-        String option = displayMenuOptions(5);
+        String option = displayMenuOptions(5);  // Display task edit options and get user input
         if(option.matches("[ABCD]")){
             switch(option){
                 case "A":
