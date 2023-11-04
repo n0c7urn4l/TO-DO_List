@@ -7,7 +7,7 @@ public class TaskList {
 
     private Node firstNode;
     private Node lastNode;
-    private int nodeCount = 0;
+    private int nodeCount = 0; // keep track of total nodes created in the list
 
     //To temporary store nodes when displaying tasks(in displayList method) to fetch them when user requests using index;
     public Node[] nodeArr;
@@ -25,6 +25,7 @@ public class TaskList {
     public boolean isEmpty(){
         return nodeCount == 0;
     }
+
 
 
     public void addNode(Node node){
@@ -100,18 +101,20 @@ public class TaskList {
         }
     }
 
-    public void displayList(){
+    public void displayList(int listType){
 
         /*
                 Display Task List
+                listType == 1 --> display whole task list
+                listType == 2 --> display only the tasks due current day
          */
         nodeArrCount = 0;
-        if(nodeCount == 0){
+        if(isEmpty()){
             System.out.println("           TASK LIST EMPTY");
             System.out.println("             ADD TASKS ;)");
-        }else{
-//            System.out.println("Node count: "+nodeCount);
-            nodeArr = new Node[50];
+        }else if(listType == 1){
+            System.out.println("---ALL TASKS---\n");
+            nodeArr = new Node[100];
             Node currentNode = firstNode;
             LocalDate currentDateRecord = null;
             for (int i =1;i<=nodeCount;i++){
@@ -130,6 +133,21 @@ public class TaskList {
                 nodeArr[i-1] = currentNode;
                 currentNode = currentNode.next;
             }
+        }else if(listType == 2){
+            selectionSort("A");
+            nodeArr = new Node[100];
+            Node currentNode = firstNode;
+            LocalDate currentDateRecord = LocalDate.now();
+            System.out.println("---TASKS DUE TODAY---\n");
+            for (int i =1;i<=nodeCount;i++){
+                if(currentNode.getTask().getDueDate().equals(currentDateRecord)){
+                    currentNode.display(i);
+                    nodeArrCount++;
+                    nodeArr[i-1] = currentNode;
+                }
+                currentNode = currentNode.next;
+            }
+
         }
 
     }
@@ -147,23 +165,28 @@ public class TaskList {
         while(currentNode != null){
             Node minNode = currentNode;
             Node tempNode = currentNode.next;
-            while(tempNode != null){
+            while(tempNode != null) {
 
-                if(sortType.equals("B")){
-                    if(tempNode.getTask().getTitle().compareTo(minNode.getTask().getTitle())<0){
+                if (sortType.equals("B")) {
+                    if (tempNode.getTask().getTitle().compareTo(minNode.getTask().getTitle()) < 0) {
                         minNode = tempNode;
                     }
-                }else if(sortType.equals("A")){
-                    if(tempNode.getTask().getDueDate().isBefore(minNode.getTask().getDueDate())){
+                } else if (sortType.equals("A")) {
+                    if (tempNode.getTask().getDueDate().isBefore(minNode.getTask().getDueDate())) {
                         minNode = tempNode;
                     }
-                }else if(sortType.equals("C")) {
-                    if ((tempNode.getTask().getDescription().compareTo(minNode.getTask().getDescription()) < 0)&&!(tempNode.getTask().getDescription().equals("No Description"))) {
+                } else if (sortType.equals("C")) {
+                    if ((tempNode.getTask().getDescription().compareTo(minNode.getTask().getDescription()) < 0)) {
                         minNode = tempNode;
                     }
-                }else if(sortType.equals("D")){
-                    if(tempNode.getTask().getCurrentTaskId()<minNode.getTask().getCurrentTaskId()){
+                } else if (sortType.equals("D")) {
+                    if (tempNode.getTask().getCurrentTaskId() < minNode.getTask().getCurrentTaskId()) {
                         minNode = tempNode;
+                    }
+                }else if (sortType.equals("E")){
+                    if(tempNode.getTask().getPriority()<minNode.getTask().getPriority()){
+                        minNode = tempNode;
+                        break;
                     }
                 }else{
                     System.out.println("Wrong sort input");

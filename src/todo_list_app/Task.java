@@ -11,6 +11,7 @@ public class Task {
     private LocalDate dueDate;
     private boolean status;
 
+    private int priority = 0;
     public boolean isComplete() {
         return status;
     }
@@ -52,16 +53,21 @@ public class Task {
         return currentTaskId;
     }
 
-    public Task(String title, String description, LocalDate dueDate){
+    public int getPriority(){ return priority; }
+
+    public void setPriority(int priority){ this.priority = priority; }
+
+    public Task(String title, String description, LocalDate dueDate, int priority){
         currentTaskId = taskId++;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.status = false;
+        this.priority = priority;
     }
 
-    public Task(String title, LocalDate dueDate){
-        this(title,"No Description",dueDate);
+    public Task(String title, LocalDate dueDate, int priority){
+        this(title,"No Description",dueDate,priority);
     }
 
     public void markAsComplete(){
@@ -70,10 +76,19 @@ public class Task {
 
     @Override
     public String toString(){
+        String priorityString = null;
+        if(this.priority == 1){
+            priorityString = "High";
+        }else if(this.priority == 2){
+            priorityString = "Medium";
+        }else if(this.priority == 3){
+            priorityString = "Low";
+        }
         String displayData = "Task Id: "+getCurrentTaskId();
         displayData += "\nTitle: "+getTitle();
         displayData += "\nDescription: "+getDescription();
         displayData += "\nDue Date: "+getDueDate();
+        displayData += "\nPriority Level: "+priorityString;
         displayData += "\nTask status: "+getStatus();
 
         return displayData;

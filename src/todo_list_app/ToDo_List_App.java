@@ -35,8 +35,8 @@ public class ToDo_List_App {
             case 1:
                 //main menu options
                 System.out.println("#---------------------------------------------------------------#");
-                System.out.println("A:ADD-Task  B:Remove-All  C:Sort-List  D:Completed-Tasks  E:Exit");
-                System.out.println("Select a task-number or option:");
+                System.out.println("A:ADD-Task  B:Remove-All  C:Sort-List  D:Completed-Tasks  E:Show-Tasks-Due-Today  F:Exit");
+                System.out.println("Select a task-number or an option:");
                 option = sc.nextLine();
                 break;
             case 2:
@@ -67,6 +67,12 @@ public class ToDo_List_App {
                 System.out.println("Select sorting option:");
                 option = sc.nextLine();
                 break;
+            case 6:
+                System.out.println("#--------#");
+                System.out.println("A:Go-Back");
+                System.out.println("Select a task-number or an option:");
+                option = sc.nextLine();
+                break;
             default:
                 System.out.println("Wrong menu Id");
                 break;
@@ -90,7 +96,8 @@ public class ToDo_List_App {
             String description = sc.nextLine();
             System.out.println("Due Date: ");
             LocalDate dueDate = getDate();
-            task = new Task(title,description,dueDate);
+            int priority = getPriority();
+            task = new Task(title,description,dueDate,priority);
 //            System.out.println("task = new Task(title,description,dueDate);");
             Node newNode = new Node(task);
             taskList.addNode(newNode);
@@ -98,7 +105,8 @@ public class ToDo_List_App {
         }else if(Objects.equals(option1,"n")){
             System.out.println("Due Date: ");
             LocalDate dueDate = getDate();
-            task = new Task(title,dueDate);
+            int priority = getPriority();
+            task = new Task(title,dueDate,priority);
             Node newNode = new Node(task);
 //            System.out.println("Node newNode = new Node(task);");
             taskList.addNode(newNode);
@@ -115,6 +123,29 @@ public class ToDo_List_App {
             displayMainMenu();
         }
 
+    }
+
+    private int getPriority(){
+        /*
+            Fetch and return priority level from user
+         */
+        Scanner sc = new Scanner(System.in);
+        System.out.println("#--------------------#");
+        System.out.println("Select priority level:");
+        System.out.println("    1:High  2:Normal  3:Low");
+        String option = sc.nextLine();
+        int priority = 0;
+        if(option.equals("1")){
+            priority = 1;
+        }else if(option.equals("2")){
+            priority = 2;
+        }else if(option.equals("3")){
+            priority = 3;
+        }else{
+            System.out.println("Wrong input try again!");
+            priority = getPriority();
+        }
+        return priority;
     }
 
     private LocalDate getDate(){
@@ -145,11 +176,11 @@ public class ToDo_List_App {
         /*
                 MAIN MENU for TODO List App
          */
+        taskList.displayList(1);
         System.out.println("### MAIN MENU ###\n");
-        taskList.displayList();
         String option = displayMenuOptions(1);
         if(option.matches("[A-Z]+")){
-            if(option.matches("[ABCDE]")){
+            if(option.matches("[ABCDEF]")){
                 switch(option){
                     case "A":
                         addTask();
@@ -179,6 +210,14 @@ public class ToDo_List_App {
                         }
                         break;
                     case "E":
+                        if(taskList.isEmpty()){
+                            displayMainMenu();
+                        }else{
+                            displayTaskDueTodayMenu();
+                        }
+
+                        break;
+                    case "F":
                         System.exit(0);
                         break;
                     default:
@@ -205,6 +244,41 @@ public class ToDo_List_App {
 
     }
 
+    public void displayTaskDueTodayMenu(){
+        String option = null;
+        taskList.displayList(2);
+        if(taskList.nodeArrCount != 0){
+            option = displayMenuOptions(6);
+            if(option.equals("A")){
+                displayMainMenu();
+            }else if(option.matches("\\d+")){
+                int taskNum = Integer.parseInt(option);
+                if(!(taskNum>taskList.nodeArrCount)&&(taskNum != 0)){
+                    Node taskNode = taskList.nodeArr[taskNum-1];
+                    taskMenu(taskNode);
+                }else{
+                    System.out.println("Wrong input try again");
+                    displayTaskDueTodayMenu();
+                }
+            }else{
+                System.out.println("Wrong input try again");
+                displayTaskDueTodayMenu();
+            }
+        }else {
+            System.out.println("           NO TASKS DUE");
+            System.out.println("              TODAY ;)\n");
+            option = displayMenuOptions(4);
+            if(option.equals("A")){
+                displayMainMenu();
+            }else{
+                System.out.println("Wrong option try again!");
+                displayTaskDueTodayMenu();
+            }
+
+        }
+
+    }
+
     public void taskMenu(Node currentTaskNode){
 
         /*
@@ -218,11 +292,13 @@ public class ToDo_List_App {
             case "A":
                 taskList.markAsComplete(currentTaskNode.getTask());
                 System.out.println("Task mark as completed");
+                taskList.selectionSort("A");
                 displayMainMenu();
                 break;
             case "B":
                 taskList.remove(currentTaskNode.getTask());
                 System.out.println("Task removed from the list");
+                taskList.selectionSort("A");
                 displayMainMenu();
                 break;
             case "C":
@@ -271,7 +347,9 @@ public class ToDo_List_App {
                     displayMainMenu();
                     break;
                 case "D":
-                    System.out.println("Not done yet");
+                    currentTaskNode.getTask().setPriority(getPriority());
+                    System.out.println("Edit successful");
+                    displayMainMenu();
                     break;
                 default:
                     System.out.println("Wrong task edit option");
