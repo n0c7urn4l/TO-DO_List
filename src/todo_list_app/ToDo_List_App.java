@@ -198,6 +198,7 @@ public class ToDo_List_App {
                         String sortOption = displayMenuOptions(3);  // Display sorting options and get user input
                         if(sortOption.matches("[ABCDE]")){
                             taskList.selectionSort(sortOption);  // Sort the task list
+                            System.out.println("---List sorted---");
                             displayMainMenu();
                         }else{
                             System.out.println("Wrong sort option try again");

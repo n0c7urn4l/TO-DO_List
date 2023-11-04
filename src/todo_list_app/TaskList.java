@@ -211,9 +211,7 @@ public class TaskList {
             minNode.setTask(swapTask);
 
             currentNode = currentNode.next;
-
         }
-
     }
 
     /**
