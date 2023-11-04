@@ -189,15 +189,18 @@ public class ToDo_List_App {
                 System.out.println("Wrong main menu input try again");
                 displayMainMenu();
             }
-        }else{
+        }else if(option.matches("\\d+")){
             int taskNum = Integer.parseInt(option);
-            if(taskNum<taskList.nodeArr.length){
+            if(!(taskNum>taskList.nodeArrCount)&&(taskNum != 0)){
                 Node taskNode = taskList.nodeArr[taskNum-1];
                 taskMenu(taskNode);
             }else{
                 System.out.println("Wrong input try again");
                 displayMainMenu();
             }
+        }else{
+            System.out.println("Wrong input try again");
+            displayMainMenu();
         }
 
     }

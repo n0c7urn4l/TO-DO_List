@@ -11,6 +11,7 @@ public class TaskList {
 
     //To temporary store nodes when displaying tasks(in displayList method) to fetch them when user requests using index;
     public Node[] nodeArr;
+    public int nodeArrCount = 0;
 
     //To store completed Task Nodes
     public Task[] completedTaskArr = new Task[500];
@@ -24,6 +25,7 @@ public class TaskList {
     public boolean isEmpty(){
         return nodeCount == 0;
     }
+
 
     public void addNode(Node node){
         /*
@@ -103,7 +105,7 @@ public class TaskList {
         /*
                 Display Task List
          */
-
+        nodeArrCount = 0;
         if(nodeCount == 0){
             System.out.println("           TASK LIST EMPTY");
             System.out.println("             ADD TASKS ;)");
@@ -124,6 +126,7 @@ public class TaskList {
                 }
 
                 currentNode.display(i);
+                nodeArrCount++;
                 nodeArr[i-1] = currentNode;
                 currentNode = currentNode.next;
             }
@@ -155,7 +158,7 @@ public class TaskList {
                         minNode = tempNode;
                     }
                 }else if(sortType.equals("C")) {
-                    if (tempNode.getTask().getDescription().compareTo(minNode.getTask().getDescription()) < 0) {
+                    if ((tempNode.getTask().getDescription().compareTo(minNode.getTask().getDescription()) < 0)&&!(tempNode.getTask().getDescription().equals("No Description"))) {
                         minNode = tempNode;
                     }
                 }else if(sortType.equals("D")){
