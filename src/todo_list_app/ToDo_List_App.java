@@ -151,6 +151,7 @@ public class ToDo_List_App {
                         break;
                     case "B":
                         taskList = new TaskList();
+                        Task.taskId = 0;
                         System.out.println("List cleared");
                         displayMainMenu();
                         break;

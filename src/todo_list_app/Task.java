@@ -4,7 +4,7 @@ import java.time.LocalDate;
 //Abstract variable type class
 public class Task {
 
-    private static int taskId = 0;
+    public static int taskId = 0;
     private int currentTaskId;
     private String title;
     private String description;
@@ -66,18 +66,6 @@ public class Task {
 
     public void markAsComplete(){
         this.status = true;
-    }
-
-    public void editTitle(String title){
-        this.title = title;
-    }
-
-    public void editDescription(String description){
-        this.description = description;
-    }
-
-    public void editDueDate(LocalDate dueDate){
-        this.dueDate = dueDate;
     }
 
     @Override

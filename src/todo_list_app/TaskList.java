@@ -137,6 +137,8 @@ public class TaskList {
             sortType = B --> sort by title
             sortType = A --> sort by DueDate
             sortType = C --> sort by description
+            sortType = D --> sort by task added order
+            sortType = E --> sort by task priority
          */
         Node currentNode = firstNode;
         while(currentNode != null){
@@ -152,8 +154,12 @@ public class TaskList {
                     if(tempNode.getTask().getDueDate().isBefore(minNode.getTask().getDueDate())){
                         minNode = tempNode;
                     }
-                }else if(sortType.equals("C")){
-                    if(tempNode.getTask().getDescription().compareTo(minNode.getTask().getDescription())<0){
+                }else if(sortType.equals("C")) {
+                    if (tempNode.getTask().getDescription().compareTo(minNode.getTask().getDescription()) < 0) {
+                        minNode = tempNode;
+                    }
+                }else if(sortType.equals("D")){
+                    if(tempNode.getTask().getCurrentTaskId()<minNode.getTask().getCurrentTaskId()){
                         minNode = tempNode;
                     }
                 }else{
