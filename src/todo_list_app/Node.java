@@ -19,7 +19,7 @@ public class Node {
 
     public void display(int count){
         System.out.println("-----------------------------------------------------------");
-        System.out.println(count);
+        System.out.println("Task-Number: "+count);
         System.out.println(taskData.toString());
         System.out.println("-----------------------------------------------------------\n");
     }

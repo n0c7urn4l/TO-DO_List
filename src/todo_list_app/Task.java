@@ -84,8 +84,7 @@ public class Task {
         }else if(this.priority == 3){
             priorityString = "Low";
         }
-        String displayData = "Task Id: "+getCurrentTaskId();
-        displayData += "\nTitle: "+getTitle();
+        String displayData = "\nTitle: "+getTitle();
         displayData += "\nDescription: "+getDescription();
         displayData += "\nDue Date: "+getDueDate();
         displayData += "\nPriority Level: "+priorityString;

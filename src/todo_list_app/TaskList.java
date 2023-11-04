@@ -13,9 +13,14 @@ public class TaskList {
     public Node[] nodeArr;
     public int nodeArrCount = 0;
 
+    private final int maxCompletedTasks = 100;
+
+    public int completedTaskCount = 0; //keep track of the number of completed tasks int the completedTaskArr[]
+
+
     //To store completed Task Nodes
-    public Task[] completedTaskArr = new Task[500];
-    int completedTaskCount = 0;
+    public Task[] completedTaskArr = new Task[maxCompletedTasks]; // Array to store completed tasks list reset when task count reached 100
+
 
     public TaskList(){
         firstNode = null;
@@ -24,7 +29,7 @@ public class TaskList {
 
     public boolean isEmpty(){
         return nodeCount == 0;
-    }
+    } // check whether the list is empty or not
 
 
 
@@ -206,6 +211,10 @@ public class TaskList {
     }
 
     public void markAsComplete(Task completedTask){
+        if(completedTaskCount == maxCompletedTasks){
+            //reset the completed task array if array gets full
+            completedTaskArr = new Task[maxCompletedTasks];
+        }
         completedTaskArr[completedTaskCount] = completedTask;
         completedTask.markAsComplete();
         remove(completedTask);
