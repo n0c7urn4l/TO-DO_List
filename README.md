@@ -2,7 +2,8 @@
  
 Name: - T.G.D.S. Chathuranga
 Index: -  AS2021367
-TaskList Class(Linked List)
+
+# TaskList Class(Linked List)
 
 Rationale and Design Decisions:
 1. Linked List Data Structure: The class uses a linked list to store tasks. Linked lists are efficient for frequent insertions and deletions, which are common operations when managing a to-do list.
@@ -16,7 +17,7 @@ Trade-offs:
 1. Memory Usage: The class uses an array to store completed tasks, which has a maximum size of 100. This design choice limits the number of completed tasks that can be stored.
 2. Selection Sort: The selection sort algorithm is simple to implement but may not be the most efficient sorting algorithm for larger lists. 
 
-Task Class(Abstract data type)
+# Task Class(Abstract data type)
 
 Rationale and Design Decisions:
 1. Task Properties: The "Task" class defines key properties of a task, including its title, description, due date, status (ongoing or completed), priority level, and a unique task ID.
