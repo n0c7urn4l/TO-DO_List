@@ -108,7 +108,7 @@ public class TaskList {
             System.out.println("           TASK LIST EMPTY");
             System.out.println("             ADD TASKS ;)");
         }else{
-            System.out.println("Node count: "+nodeCount);
+//            System.out.println("Node count: "+nodeCount);
             nodeArr = new Node[50];
             Node currentNode = firstNode;
             LocalDate currentDateRecord = null;
@@ -117,9 +117,9 @@ public class TaskList {
                 if(!currentNode.getTask().getDueDate().equals(currentDateRecord)){
                     currentDateRecord = currentNode.getTask().getDueDate();
                     if(currentDateRecord.equals(LocalDate.now())){
-                        System.out.println("***DUE TODAY***\n");
+                        System.out.println("***DUE TODAY***");
                     }else{
-                        System.out.println("***DUE "+currentDateRecord+"***\n");
+                        System.out.println("***DUE "+currentDateRecord+"***");
                     }
                 }
 
@@ -186,13 +186,19 @@ public class TaskList {
         completedTaskCount++;
     }
     public void showCompletedTasks(){
-        for(int i = 0;i<completedTaskCount;i++){
-            System.out.println("-----------------------------------------------------------");
-            System.out.println(i+1);
-            System.out.println(completedTaskArr[i].toString());
-            System.out.println("-----------------------------------------------------------\n");
+        if(completedTaskCount ==0){
+            System.out.println("        No Completed Tasks");
+            System.out.println("            to show :(");
+        }else{
+            for(int i = 0;i<completedTaskCount;i++){
+                System.out.println("-----------------------------------------------------------");
+                System.out.println(i+1);
+                System.out.println(completedTaskArr[i].toString());
+                System.out.println("-----------------------------------------------------------\n");
 
+            }
         }
+
     }
 
 

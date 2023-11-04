@@ -49,7 +49,7 @@ public class ToDo_List_App {
             case 3:
                 //sorting options
                 System.out.println("#----------------------------------------#");
-                System.out.println("A:By-DueDate  B:By-Title C:By-Description");
+                System.out.println("A:By-DueDate  B:By-Title  C:By-Description  D:By-Added-order  E:By-Priority");
                 System.out.println("Select sorting option:");
                 option = sc.nextLine();
                 break;
@@ -63,7 +63,7 @@ public class ToDo_List_App {
             case 5:
                 //task edit options
                 System.out.println("#---------------------------------------#");
-                System.out.println("A:Title  B:Description C:Due Date");
+                System.out.println("A:Title  B:Description  C:Due Date  D:Priority");
                 System.out.println("Select sorting option:");
                 option = sc.nextLine();
                 break;
@@ -91,7 +91,7 @@ public class ToDo_List_App {
             System.out.println("Due Date: ");
             LocalDate dueDate = getDate();
             task = new Task(title,description,dueDate);
-            System.out.println("task = new Task(title,description,dueDate);");
+//            System.out.println("task = new Task(title,description,dueDate);");
             Node newNode = new Node(task);
             taskList.addNode(newNode);
             System.out.println("-Task added-");
@@ -100,7 +100,7 @@ public class ToDo_List_App {
             LocalDate dueDate = getDate();
             task = new Task(title,dueDate);
             Node newNode = new Node(task);
-            System.out.println("Node newNode = new Node(task);");
+//            System.out.println("Node newNode = new Node(task);");
             taskList.addNode(newNode);
             System.out.println("-Task added-");
         }else{
@@ -133,7 +133,12 @@ public class ToDo_List_App {
         System.out.println("    *Enter day:");
         day = sc.nextInt();
         sc.nextLine();
-        return LocalDate.of(year,month,day);
+        LocalDate fetchedDate = LocalDate.of(year,month,day);
+        if(fetchedDate.isBefore(LocalDate.now())){
+            System.out.println("Date has passed. Try upcoming date!");
+            fetchedDate = getDate();
+        }
+        return fetchedDate;
     }
 
     public void displayMainMenu(){
@@ -157,7 +162,7 @@ public class ToDo_List_App {
                         break;
                     case "C":
                         String sortOption = displayMenuOptions(3);
-                        if(sortOption.matches("[ABC]")){
+                        if(sortOption.matches("[ABCDE]")){
                             taskList.selectionSort(sortOption);
                             displayMainMenu();
                         }else{
@@ -239,7 +244,7 @@ public class ToDo_List_App {
         Scanner sc = new Scanner(System.in);
         System.out.println("Edit By:");
         String option = displayMenuOptions(5);
-        if(option.matches("[ABC]")){
+        if(option.matches("[ABCD]")){
             switch(option){
                 case "A":
                     System.out.println("Enter new title:");
@@ -261,6 +266,9 @@ public class ToDo_List_App {
                     currentTaskNode.getTask().setDueDate(newDate);
                     System.out.println("Edit successful");
                     displayMainMenu();
+                    break;
+                case "D":
+                    System.out.println("Not done yet");
                     break;
                 default:
                     System.out.println("Wrong task edit option");

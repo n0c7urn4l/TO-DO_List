@@ -70,7 +70,8 @@ public class Task {
 
     @Override
     public String toString(){
-        String displayData = "Title: "+getTitle();
+        String displayData = "Task Id: "+getCurrentTaskId();
+        displayData += "\nTitle: "+getTitle();
         displayData += "\nDescription: "+getDescription();
         displayData += "\nDue Date: "+getDueDate();
         displayData += "\nTask status: "+getStatus();
