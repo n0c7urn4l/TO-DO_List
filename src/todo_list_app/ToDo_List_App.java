@@ -4,7 +4,6 @@
  */
 package todo_list_app;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Objects;
 import java.util.Scanner;
 

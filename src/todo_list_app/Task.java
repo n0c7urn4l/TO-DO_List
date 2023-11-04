@@ -1,7 +1,9 @@
 package todo_list_app;
 
 import java.time.LocalDate;
-//Abstract variable type class
+/*
+    Abstract variable type class
+ */
 public class Task {
 
     public static int taskId = 0;

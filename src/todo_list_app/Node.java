@@ -1,5 +1,8 @@
 package todo_list_app;
 
+/*
+    Node class for the TaskList(linked list)
+ */
 public class Node {
 
     private Task taskData;

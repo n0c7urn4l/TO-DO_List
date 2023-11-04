@@ -2,7 +2,9 @@ package todo_list_app;
 
 import java.time.LocalDate;
 
-//Implementing using an ordered linked list which can traverse both sides
+/*
+    Implementing using a linked list
+ */
 public class TaskList {
 
     private Node firstNode;
